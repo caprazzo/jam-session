@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Login</title>
+	</head>
+	<body>
+		<h1>Login</h1>
+		
+		<div>
+			To login, enter your credentials or use the <a href="/simpleauth/external-login">external login</a>.<br/>
+			If you don't have an account, you can <a href="/simpleauth/register">register</a>
+		</div>
+		
+		<div style="color:red">{{ message }}</div>
+		
+		
+		<form method="POST">
+			email: <input type="text" name="email"/><br/>
+			password: <input type="password" name="password"/><br/>
+			<input type="submit" value="login"/>			
+		</form>
+		
+		
+	</body>
+</html>

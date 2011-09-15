@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+		<title>External Login</title>
+	</head>
+	
+	<body>
+		<h1>External Login</h1>
+		
+		To external login:
+		<ol>
+			<li>Get your secret token from your <a href="/simpleauth/profile">profile page</a></li>
+			<li>Using any other http client, hit this url: <br/><br/>
+				<strong>http://{{ base-url }}/simpleauth/external-hook/{{ ext-session-id }}/[your token]</strong><br/><br/>
+				(it's more fun if you try it with curl)</li>
+		</ol>
+		
+		
+		<script type="text/javascript" src="/_ah/channel/jsapi"></script>
+		  <script>
+			channel = new goog.appengine.Channel('{{ channel-token }}');
+			socket = channel.open();
+			socket.onopen = function() {
+				if (console)
+					console.log('open'); 
+			};
+			socket.onmessage = function(msg) {
+				if (console) console.log(msg);
+				if (msg.data.indexOf('success') == 0) 
+					window.location = "/simpleauth/profile"					
+			}
+			  
+			socket.onerror = function(err) {
+				if (console) console.log(err);
+			}
+			  
+			socket.onclose = function() {
+				if (console) console.log('close');
+			}
+		    
+		  </script>
+	</body>
+</html>

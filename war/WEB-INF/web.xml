@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee">
+
+  <!-- ping -->
+  <servlet>
+    <servlet-name>pingSessionServlet</servlet-name>
+    <servlet-class>net.caprazzi.tapauth.pingable.PingPageServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>PingablePageServlet</servlet-name>
+    <servlet-class>net.caprazzi.tapauth.pingable.PingablePageServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>pingSessionServlet</servlet-name>
+    <url-pattern>/ping/ping</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>PingablePageServlet</servlet-name>
+  	<url-pattern>/ping/page</url-pattern>
+  </servlet-mapping>
+  
+  <!-- inject -->
+  <servlet>
+    <servlet-name>InjectableSessionServlet</servlet-name>
+    <servlet-class>net.caprazzi.tapauth.inject.InjectableSessionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>InjectableSessionServlet</servlet-name>
+  	<url-pattern>/inject/page</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>InjectSessionServlet</servlet-name>
+    <servlet-class>net.caprazzi.tapauth.inject.InjectSessionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InjectSessionServlet</servlet-name>
+    <url-pattern>/inject/inject</url-pattern>
+  </servlet-mapping>
+  
+  <!-- simpleauth -->
+  <servlet>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<servlet-class>net.caprazzi.tapauth.simpleauth.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<url-pattern>/simpleauth/register</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<servlet-class>net.caprazzi.tapauth.simpleauth.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<url-pattern>/simpleauth/login</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+  	<servlet-name>ProfileServlet</servlet-name>
+  	<servlet-class>net.caprazzi.tapauth.simpleauth.ProfileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ProfileServlet</servlet-name>
+  	<url-pattern>/simpleauth/profile</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>LogoutServlet</servlet-name>
+  	<servlet-class>net.caprazzi.tapauth.simpleauth.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LogoutServlet</servlet-name>
+  	<url-pattern>/simpleauth/logout</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>UnsubscribeServlet</servlet-name>
+  	<servlet-class>net.caprazzi.tapauth.simpleauth.UnsubscribeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UnsubscribeServlet</servlet-name>
+  	<url-pattern>/simpleauth/unsubscribe</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ExternalLoginPageServlet</servlet-name>
+  	<servlet-class>net.caprazzi.tapauth.simpleauth.ExternalLoginPageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ExternalLoginPageServlet</servlet-name>
+  	<url-pattern>/simpleauth/external-login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ExternalLoginHookServlet</servlet-name>
+  	<servlet-class>net.caprazzi.tapauth.simpleauth.ExternalLoginHookServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ExternalLoginHookServlet</servlet-name>
+  	<url-pattern>/simpleauth/external-hook/*</url-pattern>
+  </servlet-mapping>
+      
+  <listener>
+	<listener-class>net.caprazzi.tapauth.inject.InjectSessionListener</listener-class>
+	</listener>
+  
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>

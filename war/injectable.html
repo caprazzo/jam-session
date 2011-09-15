@@ -1,0 +1,47 @@
+<body>
+
+  <h3>Test 2: injectable session</h3>
+  Hit this url with curl to bind additional variables to this session<br/>
+
+  http://localhost:8888/tapauth/inject?sxId={{ sessionId }}[specify your variables here]
+  
+  <br/><br/>
+  Reload this page to see your additional variables
+  
+  
+  
+  <br/><br/>
+  
+  Session vars:
+  <div>
+  {{ session-vars }}
+  </div>
+  <hr/>
+  
+  Session updates:
+  <div id="updates"></div>
+  
+  <script type="text/javascript" src="/_ah/channel/jsapi"></script>
+  <script>
+    channel = new goog.appengine.Channel('{{ token }}');
+    socket = channel.open();
+    socket.onopen = function() { console.log('open'); };
+    
+    socket.onmessage = function(msg) {
+    	var div = document.getElementById('updates')
+    	var ping = document.createElement('div');
+    	ping.innerHTML = 'session updated';
+    	div.appendChild(ping);
+    }
+    
+    socket.onerror = function(err) {    	    	
+    	console.log(err);
+    }
+    
+    socket.onclose = function() {
+    	console.log('close');
+    }
+    
+  </script>
+  
+</body>

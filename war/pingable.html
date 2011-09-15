@@ -1,0 +1,33 @@
+<body>
+
+  <h3>Test 1: pingable page</h3>
+  Hit this url with curl to see 'pings' appear on this page:<br/>
+
+  http://localhost:8888/tapauth/ping?clientId={{ clientId }}
+  
+  <br/><br/>
+  Pings:
+  <div id="messages"></div>
+  <script type="text/javascript" src="/_ah/channel/jsapi"></script>
+  <script>
+    channel = new goog.appengine.Channel('{{ token }}');
+    socket = channel.open();
+    socket.onopen = function() { console.log('open'); };
+    socket.onmessage = function(msg) {
+    	var div = document.getElementById('messages')
+    	var ping = document.createElement('div');
+    	ping.innerHTML = 'ping';
+    	div.appendChild(ping);
+    }
+    
+    socket.onerror = function(err) {    	    	
+    	console.log(err);
+    }
+    
+    socket.onclose = function() {
+    	console.log('close');
+    }
+    
+  </script>
+  
+</body>
