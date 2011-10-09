@@ -61,7 +61,7 @@ public class PoorSessionManager {
 	}
 
 	public static void loginUser(HttpServletResponse resp, String userId) {
-		String sessionId = Misc.makeSecret();
+		String sessionId = Misc.randomString();
 		PoorSession session = new PoorSession(sessionId, true, userId);	
 		saveSession(session);
 		resp.addCookie(new Cookie(POOR_SESSION_COOKIE_NAME, sessionId));
@@ -76,7 +76,7 @@ public class PoorSessionManager {
 	}		
 
 	public static PoorSession createTempSession(HttpServletResponse resp) {
-		String sessionId = Misc.makeSecret();
+		String sessionId = Misc.randomString();
 		PoorSession session = new PoorSession(sessionId, false, null);
 		saveSession(session);
 		resp.addCookie(new Cookie(POOR_SESSION_COOKIE_NAME, sessionId));

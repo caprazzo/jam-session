@@ -71,8 +71,8 @@ public class Misc {
 
 
 	private static SecureRandom random = new SecureRandom();
-	public static String makeSecret() {
-		return new BigInteger(130, random).toString(32);
+	public static String randomString() {
+		return new BigInteger(32, random).toString(32);
 	}
 	
 	public static Entity getCurrentUser(HttpServletRequest req) {

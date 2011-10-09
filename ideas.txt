@@ -1,0 +1,27 @@
+Multiplayer:
+- chatroom
+- quiz
+	pub
+	trivia
+		movie quotes
+	math
+	google-quiz
+	find similar objects (memory)
+	spot the difference
+	spot the similarities
+	
+Two Players (one screen)
+- tic tac toe
+- forza 4
+	
+- tap-ability
+	tap fast (horse race, car race)
+	tap shapes
+	guitar hero
+	tap the mouse
+	
+- single player
+	solitaire
+	tetris
+	"angry birds"
+

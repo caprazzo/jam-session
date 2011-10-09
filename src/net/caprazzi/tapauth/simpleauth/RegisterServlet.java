@@ -37,7 +37,7 @@ public class RegisterServlet extends HttpServlet {
 			Entity user = new Entity("User", userKey);
 			user.setProperty("email", email);
 			user.setProperty("hash", Misc.makeUserHash(email, password1));
-			user.setProperty("external-secret", Misc.makeSecret());
+			user.setProperty("external-secret", Misc.randomString());
 			user.setProperty("name", name);
 			
 			DatastoreServiceFactory.getDatastoreService().put(user);			
