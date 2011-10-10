@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+	<head>
+		<title>now chat</title>
+	</head>
+	<body>
+		<h1>chat</h1>
+		
+		To join this chat, scan this code:
+		<br/>
+		<img src="{{ QR_CODE_URL }}"/><br/>
+		
+		Chat panel:
+		<div style="border: 2px solid black; width: 20em;">
+		<div id="messages" style="height: 10em;  overflow:auto;">
+			
+		</div>
+		<hr/>
+		<form>
+			<input type="text" name="message" id="message"/>
+			<input type="submit" id="submit" value="send"/>
+		</form>
+		</div>
+				
+				
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+		<script>
+		
+		$('#submit').click(function() {
+		$.ajax({
+			type: 'POST',
+			url: "/simplechat/post/{{ CHANNEL_ID }}",
+			data: {
+				message: $('#message').val()
+			},
+			success: function() {
+				$('#message').val(null);
+			}
+		});
+		return false;
+		})
+		</script>
+		
+		
+		<script type="text/javascript" src="/_ah/channel/jsapi"></script>
+  <script>
+    channel = new goog.appengine.Channel('{{ CHANNEL_TOKEN }}');
+    socket = channel.open();
+    socket.onopen = function() { console.log('open'); };
+    socket.onmessage = function(msg) {
+    	var div = document.getElementById('messages')
+    	var msgDiv = document.createElement('div');
+    	msgDiv.innerHTML = msg.data;
+    	div.appendChild(msgDiv);
+    }
+    
+    socket.onerror = function(err) {    	    	
+    	console.log(err);
+    }
+    
+    socket.onclose = function() {
+    	console.log('close');
+    }
+    
+  </script>
+	</body>
+</html>

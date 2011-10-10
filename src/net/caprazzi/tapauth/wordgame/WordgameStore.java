@@ -23,13 +23,7 @@ public class WordgameStore {
 	private static final String PLAYER_ENTITY = "Player";
 	
 	private static final long OPEN_MATCH_LIFE = 1000 * 60 * 3; // 3 minutes
-	private final WordsProvider wordsProvider;
 
-	
-	public WordgameStore(WordsProvider wordsProvider) {
-		this.wordsProvider = wordsProvider;
-	}
-	
 	/**
 	 * Find or create an open match and join it
 	 */
@@ -56,7 +50,6 @@ public class WordgameStore {
 									
 			// store a new player for this match
 			Entity player = new Entity(PLAYER_ENTITY, playerId, matchEntity.getKey());
-			player.setProperty("NAME", "PlayerOne");
 			player.setProperty("STATUS", Status.JOINED.toString());
 			
 			ds.put(matchEntity);
@@ -69,6 +62,36 @@ public class WordgameStore {
 		finally {
 			if (txn.isActive())
 				txn.rollback();			
+		}
+	}
+	
+	public static Match createReplayMatch(String gameId, String matchId, Player player, Player opponent) {
+		long ts = new Date().getTime();
+		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		Transaction txn = ds.beginTransaction();
+		try {	
+			Key gameKey = KeyFactory.createKey(GAME_ENTITY, gameId);
+			Entity matchEntity = createOpenMatch(ts, gameKey, matchId);
+			
+			matchEntity.setProperty("status", "active");
+			
+			Entity newPlayerEn = new Entity(PLAYER_ENTITY, player.getId(), matchEntity.getKey());
+			newPlayerEn.setProperty("STATUS", Status.JOINED.toString());
+			
+			Entity newOpponentEn = new Entity(PLAYER_ENTITY, opponent.getId(), matchEntity.getKey());
+			newOpponentEn.setProperty("STATUS", Status.JOINED.toString());
+			
+			ds.put(matchEntity);
+			ds.put(newPlayerEn);
+			ds.put(newOpponentEn);
+			
+			txn.commit();
+			
+			return Match.fromEntities(matchEntity, newPlayerEn, newOpponentEn);
+		}
+		finally {
+			if (txn.isActive())
+				txn.rollback();
 		}
 	}
 	
@@ -194,4 +217,6 @@ public class WordgameStore {
 				txn.rollback();
 		}
 	}
+
+	
 }

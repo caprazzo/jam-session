@@ -26,4 +26,12 @@ public class WordgameProtocol {
 		return "{\"cmd\":\"opponent-update-progress\", \"progress\":" + progress + "}";
 	}
 
+	public static String notifyOpponentRequestReplay() {
+		return "{\"cmd\":\"opponent-request-replay\"}";
+	}
+
+	public static String notifyRedirect(String location) {
+		return "{\"cmd\":\"redirect\", \"location\":\""+location+"\"}";
+	}
+
 }

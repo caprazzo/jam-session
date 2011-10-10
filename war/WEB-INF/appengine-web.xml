@@ -27,5 +27,9 @@
   </system-properties>
   
   <sessions-enabled>true</sessions-enabled>
+  
+  <inbound-services>
+    <service>channel_presence</service>
+  </inbound-services>
 
 </appengine-web-app>

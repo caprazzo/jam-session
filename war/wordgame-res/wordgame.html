@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<!--  <meta name="viewport" content="height=device-height,width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+	-->
+	<title>Wordgame</title>
+	
+	<script src="http://cdn.sencha.io/touch/1.1.0/sencha-touch.js"
+	type="text/javascript"></script>
+	
+<link
+	href="http://cdn.sencha.io/touch/1.1.0/resources/css/sencha-touch.css"
+	rel="stylesheet" type="text/css" />
+	
+	<style type="text/css">
+		.button-ko {
+			background-color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="pre-loading-mask"></div>
+	
+	<input type="hidden" id="SCREEN_NAME" value="{{ SCREEN_NAME }}"/>
+	<input type="hidden" id="CHANNEL_TOKEN" value="{{ CHANNEL_TOKEN }}"/>
+	<input type="hidden" id="POST_URL" value="{{ POST_URL }}"/>
+	<input type="hidden" id="GAME_WORDS" value="{{ GAME_WORDS }}"/>
+	
+	<script type="text/javascript" src="/wordgame-res/all.js"></script>
+	<script type="text/javascript" src="/_ah/channel/jsapi"></script>
+	
+</body>
+</html>

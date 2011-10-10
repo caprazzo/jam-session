@@ -89,17 +89,18 @@ public class WordgameServlet extends HttpServlet {
 		
 		String cmd = req.getParameter("cmd");		
 		String[] parts = req.getRequestURI().split("/");
-		String channelStr = parts[3];
-		GameChannelId channelId = GameChannelId.parse(channelStr);
+		String playerChannel = parts[3];
+		GameChannelId channelId = GameChannelId.parse(playerChannel);
+		String gameId = channelId.getGameId();
 		Match match = WordgameStore.getMatch(
-				channelId.getGameId(), 
+				gameId, 
 				channelId.getMatchId(), 
 				channelId.getPlayerId());
 		Player player = match.getPlayer();
 		Player opponent = match.getOpponent();
 		
 		String opponentChannel = GameChannelId.getChannelId(
-				channelId.getGameId(),
+				gameId,
 				channelId.getMatchId(),
 				opponent);
 		ChannelService channelService = ChannelServiceFactory.getChannelService();
@@ -112,32 +113,68 @@ public class WordgameServlet extends HttpServlet {
 		}
 		
 		if (cmd.equals("player-completed")) {
-			// send win to opponent
-			if (opponent.getStatus() != Status.NOT_CONNECTED) {
-				String msg = WordgameProtocol.notifyOpponentWin();
-				channelService.sendMessage(new ChannelMessage(opponentChannel, msg));
-			}
-			
-			// send win to self
-			// notify this player about the opponent
-			String msg = WordgameProtocol.notifyPlayerWin();
-			channelService.sendMessage(new ChannelMessage(channelStr, msg));
+			handlePlayerCompleted(playerChannel, match, opponent, opponentChannel, channelService);
+			return;
 		}
 		
 		if (cmd.equals("player-update-progress")) {
-			String progress = req.getParameter("progress");
-			if (opponent.getStatus() != Status.NOT_CONNECTED) {
-				String msg = WordgameProtocol.notifyOpponentProgress(progress);
-				channelService.sendMessage(new ChannelMessage(opponentChannel, msg));
-			}
+			handlePlayerUpdateProgress(req, opponent, opponentChannel,
+					channelService);
+			return;
 		}
 		
+		if (cmd.equals("player-request-replay")) {
+			if (opponent.getStatus() != Status.NOT_CONNECTED) {
+				String msg = WordgameProtocol.notifyOpponentRequestReplay();
+				channelService.sendMessage(new ChannelMessage(opponentChannel, msg));
+			}
+			return;
+		}
 		
-		// ready: game ui is loaded and ready to play
+		if (cmd.equals("player-accept-replay")) {
+			// create new match and join both players
+			Match newMatch = WordgameStore.createReplayMatch(gameId, match.getId(), player, opponent);
+			Player newPlayer = newMatch.getPlayer();
+			Player newOpponent = newMatch.getOpponent();
+			String newPlayerChannelId = GameChannelId.getChannelId(gameId, newMatch, newPlayer);
+			String newOpponentChannelId = GameChannelId.getChannelId(gameId, newMatch, newOpponent);
+			
+			// redirect both to play
+			if (opponent.getStatus() != Status.NOT_CONNECTED) {
+				String msg = WordgameProtocol.notifyRedirect("/wordgame/play/" + newOpponentChannelId);
+				channelService.sendMessage(new ChannelMessage(opponentChannel, msg));
+			}
+			
+			String msg = WordgameProtocol.notifyRedirect("/wordgame/play/" + newPlayerChannelId);
+			channelService.sendMessage(new ChannelMessage(playerChannel, msg));
+			
+		}
+	}
+
+	private void handlePlayerUpdateProgress(HttpServletRequest req,
+			Player opponent, String opponentChannel,
+			ChannelService channelService) {
+		String progress = req.getParameter("progress");
+		if (opponent.getStatus() != Status.NOT_CONNECTED) {
+			String msg = WordgameProtocol.notifyOpponentProgress(progress);
+			channelService.sendMessage(new ChannelMessage(opponentChannel, msg));
+		}
+	}
+
+	private void handlePlayerCompleted(String channelStr, Match match,
+			Player opponent, String opponentChannel,
+			ChannelService channelService) {
 		
-		// stats: points and n words completed so far
 		
-		// over: game ended (points)	
+		// send win to opponent
+		if (opponent.getStatus() != Status.NOT_CONNECTED) {
+			String msg = WordgameProtocol.notifyOpponentWin();
+			channelService.sendMessage(new ChannelMessage(opponentChannel, msg));
+		}
 		
+		// send win to self
+		// notify this player about the opponent
+		String msg = WordgameProtocol.notifyPlayerWin();
+		channelService.sendMessage(new ChannelMessage(channelStr, msg));
 	}
 }
