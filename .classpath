@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="C:/tools/eclipse-indigo/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.r37v201108301710/gwt-2.4.0/validation-api-1.0.0.GA-sources.jar"/>
 	<classpathentry kind="lib" path="C:/tools/eclipse-indigo/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.r37v201108301710/gwt-2.4.0/validation-api-1.0.0.GA.jar" sourcepath="C:/tools/eclipse-indigo/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.r37v201108301710/gwt-2.4.0/validation-api-1.0.0.GA-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-3.1.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
