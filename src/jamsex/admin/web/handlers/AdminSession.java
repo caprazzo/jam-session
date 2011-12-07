@@ -12,6 +12,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 
 import net.caprazzi.tapauth.SkimpyTemplate;
 
@@ -45,9 +46,27 @@ public class AdminSession extends AdminPageHandler {
 			.add("js_desc", (String)sessionEntity.getProperty("desc"))
 			.add("js_id", Long.toString(sessionKey.getId()))
 			.add("apps", listApps(sessionEntity))
+			.add("codes", listQrCodes(sessionEntity))
 			.write(info.getResp().getWriter());
 	}
 	
+	private static String listQrCodes(Entity sessionEntity) {
+		Query codes_query = new Query("JamQr")
+			.addFilter("type", FilterOperator.EQUAL, "session")
+			.addFilter("session_id", FilterOperator.EQUAL, sessionEntity.getKey().getId());
+		
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		PreparedQuery pq = datastore.prepare(codes_query);
+		
+		StringBuilder sb = new StringBuilder();
+		for (Entity e : pq.asIterable()) {
+			sb.append("<li>")
+			.append("<a href=\"/admin/qr_code/" + e.getKey().getId() + "\">" + e.getKey().getId() + "</a>")
+			.append("</li>");
+		}
+		return sb.toString();
+	}
+
 	private static String listApps(Entity sessionEntity) {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		//Key sessionKey = KeyFactory.createKey("JamSession", id);
