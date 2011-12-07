@@ -5,6 +5,8 @@ import jamsex.admin.web.handlers.AdminApp;
 import jamsex.admin.web.handlers.AdminCreateApp;
 import jamsex.admin.web.handlers.AdminCreateSession;
 import jamsex.admin.web.handlers.AdminIndex;
+import jamsex.admin.web.handlers.AdminInstallApp;
+import jamsex.admin.web.handlers.AdminInstalledApp;
 import jamsex.admin.web.handlers.AdminListApps;
 import jamsex.admin.web.handlers.AdminLogin;
 import jamsex.admin.web.handlers.AdminLogout;
@@ -66,6 +68,12 @@ public class AdminServlet extends HttpServlet {
 		
 		else if (info.isGet("/admin/list_apps"))
 			AdminListApps.handle(info);
+		
+		else if (info.isPath("/admin/jam_session/_/install_app"))
+			AdminInstallApp.handle(info);
+		
+		else if (info.isGet("/admin/jam_session/_/app/_"))
+			AdminInstalledApp.handle(info);
 		
 		else
 			resp.sendError(404);

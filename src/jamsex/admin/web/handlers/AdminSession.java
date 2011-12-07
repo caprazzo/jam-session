@@ -40,6 +40,7 @@ public class AdminSession extends AdminPageHandler {
 		new SkimpyTemplate(template)
 			.add("js_name", (String) sessionEntity.getProperty("name"))
 			.add("js_desc", (String)sessionEntity.getProperty("desc"))
+			.add("js_id", Long.toString(sessionKey.getId()))
 			.write(info.getResp().getWriter());
 	}
 
