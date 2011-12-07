@@ -4,7 +4,27 @@
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
 
-	<!-- ping -->
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
+	<!-- admin -->
+	<servlet>
+		<servlet-name>admin</servlet-name>
+		<servlet-class>jamsex.admin.web.AdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>admin</servlet-name>
+		<url-pattern>/admin</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>admin</servlet-name>
+		<url-pattern>/admin/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ping 
 	<servlet>
 		<servlet-name>pingSessionServlet</servlet-name>
 		<servlet-class>net.caprazzi.tapauth.pingable.PingPageServlet</servlet-class>
@@ -24,8 +44,9 @@
 		<servlet-name>PingablePageServlet</servlet-name>
 		<url-pattern>/ping/page</url-pattern>
 	</servlet-mapping>
+	-->
 
-	<!-- inject -->
+	<!-- inject 
 	<servlet>
 		<servlet-name>InjectableSessionServlet</servlet-name>
 		<servlet-class>net.caprazzi.tapauth.inject.InjectableSessionServlet</servlet-class>
@@ -43,8 +64,9 @@
 		<servlet-name>InjectSessionServlet</servlet-name>
 		<url-pattern>/inject/inject</url-pattern>
 	</servlet-mapping>
+	-->
 
-	<!-- simpleauth -->
+	<!-- simpleauth 
 	<servlet>
 		<servlet-name>RegisterServlet</servlet-name>
 		<servlet-class>net.caprazzi.tapauth.simpleauth.RegisterServlet</servlet-class>
@@ -107,8 +129,9 @@
 		<servlet-name>ExternalLoginHookServlet</servlet-name>
 		<url-pattern>/simpleauth/external-hook/*</url-pattern>
 	</servlet-mapping>
-
-	<!-- simplechat -->
+	-->
+	
+	<!-- simplechat 
 	<servlet>
 		<servlet-name>SimpleChatServlet</servlet-name>
 		<servlet-class>net.caprazzi.tapauth.simplechat.SimpleChatServlet</servlet-class>
@@ -130,8 +153,10 @@
 		<servlet-name>SimpleChatChannelHandler</servlet-name>
 		<url-pattern>/_ah/channel/disconnected/</url-pattern>
 	</servlet-mapping>
+	
+	-->
 
-	<!-- Wordgame -->
+	<!-- Wordgame
 	<servlet>
 		<servlet-name>WordgameServlet</servlet-name>
 		<servlet-class>net.caprazzi.tapauth.wordgame.WordgameServlet</servlet-class>
@@ -154,14 +179,14 @@
 		<url-pattern>/_ah/channel/disconnected/</url-pattern>
 	</servlet-mapping>
 
-
+ 	-->
+ 
+ <!-- 
 	<listener>
 		<listener-class>net.caprazzi.tapauth.inject.InjectSessionListener</listener-class>
 	</listener>
+-->
 
-	<!-- Default page to serve -->
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
+	
 
 </web-app>
