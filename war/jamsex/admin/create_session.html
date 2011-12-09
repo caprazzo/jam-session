@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+<title>create session - jam session</title>
+<style type="text/css">
+html,body,h1,form,fieldset,legend,ol,li {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #ffffff;
+	color: #111111;
+	padding: 20px;
+}
+
+form#create-session {
+	background: black;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding: 20px;
+	width: 400px;
+}
+
+form#create-session fieldset {
+	border: none;
+	margin-bottom: 10px;
+}
+
+form#create-session fieldset:last-of-type {
+	margin-bottom: 0;
+}
+
+form#create-session legend {
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	padding-bottom: 10px;
+	_text-shadow: 0 1px 1px #c0d576;
+}
+
+form#create-session ol li {
+	background: #b9cf6a;
+	background: rgba(255, 255, 255, .3);
+	border-color: #e3ebc3;
+	border-color: rgba(255, 255, 255, .6);
+	border-style: solid;
+	border-width: 2px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	line-height: 30px;
+	list-style: none;
+	padding: 5px 10px;
+	margin-bottom: 2px;
+}
+
+form#create-session ol ol li {
+	background: none;
+	border: none;
+	float: left;
+}
+
+form#create-session label {
+	float: left;
+	font-size: 13px;
+	width: 110px;
+}
+
+form#create-session fieldset fieldset label {
+	background: none no-repeat left 50%;
+	line-height: 20px;
+	padding: 0 0 0 30px;
+	width: auto;
+}
+
+form#create-session label[for=visa] {
+	background-image: url(visa.gif);
+}
+
+form#create-session label[for=amex] {
+	background-image: url(amex.gif);
+}
+
+form#create-session label[for=mastercard] {
+	background-image: url(mastercard.gif);
+}
+
+form#create-session fieldset fieldset label:hover {
+	cursor: pointer;
+}
+
+form#create-session input:not ([type=radio] ),form#create-session textarea
+	{
+	background: #ffffff;
+	border: none;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	border-radius: 3px;
+	font: italic 13px Georgia, "Times New Roman", Times, serif;
+	outline: none;
+	padding: 5px;
+	width: 200px;
+}
+
+form#create-session input:not ([type=submit] ):focus,form#create-session textarea:focus
+	{
+	background: #eaeaea;
+}
+
+form#create-session input[type=radio] {
+	float: left;
+	margin-right: 5px;
+}
+</style>
+</head>
+<body>
+	<div id="container">
+		<header>
+			<h3>create new session</h3>
+		</header>
+
+		<div id="main" role="main">
+
+			<form id="create-session" method="POST">
+				<fieldset>
+					<legend>Session Details</legend>
+
+					<ol>
+						<li>
+							<label for="name">Name</label> <input id="name"
+							name="name" type="text" placeholder="Session name" required
+							autofocus>
+						</li>
+						<li><label for="description">Description</label> <textarea
+								id="description" name="description"
+								placeholder="Session description" rows=5 required></textarea></li>
+					</ol>
+				</fieldset>
+				<fieldset>
+					<button type="submit">Create session</button>
+				</fieldset>
+			</form>
+		</div>
+
+		<footer> </footer>
+	</div>
+
+</body>
+</html>

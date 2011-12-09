@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+<body>
+List of QR codes
+<ul>
+#foreach ( $code in $codes )
+	<li>
+		admin: <a href="/admin/qr_code/$code.key.id">$code.key.id</a><br/>
+		type: $code.getProperty("type")			
+	</li>
+#end
+</ul>
+</body>
+</html>

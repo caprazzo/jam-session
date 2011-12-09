@@ -14,6 +14,7 @@ import jamsex.admin.web.handlers.AdminLogout;
 import jamsex.admin.web.handlers.AdminQrCode;
 import jamsex.admin.web.handlers.AdminSession;
 import jamsex.admin.web.handlers.AdminListSessions;
+import jamsex.admin.web.handlers.ListQrCodes;
 import jamsex.framework.RequestInfo;
 
 import java.io.IOException;
@@ -80,11 +81,16 @@ public class AdminServlet extends HttpServlet {
 		else if (info.isPost("/admin/jam_session/_/new_qr"))
 			AdminCreateSessionQr.handle(info);
 		
-		else if (info.isGet("/admin/qr_code/_"))
+		else if (info.isPath("/admin/qr_code/_"))
 			AdminQrCode.handle(info);
+		
+		else if (info.isGet("/admin/list_qr_codes"))
+			ListQrCodes.handle(info);				
 		
 		else
 			resp.sendError(404);
 	}
+	
+	
 
 }

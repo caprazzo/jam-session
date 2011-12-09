@@ -1,0 +1,24 @@
+{namespace admin}
+
+/** 
+ * Says hello to the world
+ */
+{template .helloWorld}
+	Hello World
+{/template}
+
+/**
+ * List qr codes
+ * @param codes
+ */
+{template .listQrCodes}
+	<h1>All QR codes</h1>
+	{if length($codes) == 0}
+		There are no QR codes
+	{/if}
+	<ul>
+		{foreach $code in $codes}
+			{$code.key.id}
+		{/foreach}
+	</ul>
+{/template}

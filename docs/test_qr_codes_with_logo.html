@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+	<head>
+		<style type="text/css">
+		img {
+			padding: 0;
+			margin: 0;
+		}
+		.qr {
+			float: left;
+			border: 1px solid black;
+			margin: 10px;
+		}
+		.row {
+			clear:both;
+		}
+		.logo {
+			position: absolute;
+			background-color: red;
+		}
+		</style>
+	</head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<body>
+		
+		<ol id="codes"></ol>
+		<div id="logos"></div>
+				
+		<script type="text/javascript">		
+			var sizes = [ 200 ];
+			var data = [ 'http://jms.ms/1y2p0ij32e8e7' ]
+			
+			var rec = [ 'L', 'M', 'Q', 'H' ]			
+			
+			var tmp = '<img src="%url" width="%sz" height="%sz"><br/>%dt %sz %rc';
+			
+			var base = "https://chart.googleapis.com/chart?cht=qr&";
+			function url(sz, dt, rec) {
+				return base + "chs=" + sz + 'x' + sz +  '&chld=' + rec + '|0&chl=' + dt;
+			}
+			
+			function el(sz, dt, rc) {
+				var el = document.createElement('div');
+				el.className = "qr";
+				el.innerHTML = tmp
+					.replace(new RegExp('%dt', 'g'), dt.length)
+					.replace(new RegExp('%sz', 'g'), sz)
+					.replace('%rc', rc)
+					.replace('%url', url(sz, dt, rc));
+				return el;
+			}
+			
+			var ul = document.getElementById('codes');
+			
+			for (var j=0; j<data.length; j++) {
+				var dt = data[j];
+				var li = document.createElement('li');
+				ul.appendChild(li);				
+				for (var k=0; k<rec.length; k++) {
+					var row = document.createElement('div');
+					row.className = 'row';
+					li.appendChild(row);
+					var rc = rec[k];
+					for (var i=0; i<sizes.length; i++) {
+						var sz = sizes[i];
+						row.appendChild(el(sz, dt.toUpperCase(), rc));
+						row.appendChild(el(sz, dt.toUpperCase(), rc));
+						row.appendChild(el(sz, dt.toUpperCase(), rc));
+					}
+					row.appendChild(document.createElement('br'));
+				}
+			}	
+			
+			$(function() {
+				$(document).find('div.row').each(function(id, row) {
+					var baseRatio = 10;
+					var count = 1;
+					$(row).find('IMG').each(function(id, img) {
+						console.log('img: ' + img);
+						var ratio = baseRatio * count;
+						count++;						
+						var w = img.width;
+						var h = img.height;
+						var pos = $(img).position()
+						var top = pos.top;
+						var left = pos.left;
+						var W = w * 0.1 * count;
+						var H = h * 0.1 * count;
+						var logo = $('<div class="logo"></div>')
+							.appendTo('#logos')
+							.width(W)
+							.height(H)
+							.css({top: top+(h-H), left:left+(w-W)});
+						$(img).parent().append('<span> '+ratio+'%</ratio>');
+					});
+				});
+				
+			});
+				
+			
+		</script>
+		
+		
+		
+	</body>
+</html>
